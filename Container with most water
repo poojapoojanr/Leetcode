@@ -1,0 +1,34 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        res = 0
+        # for i in range(n):
+        #     j = n-1
+        #     while j >= 0:
+        #         d1 = j-i
+        #         d2 = min(height[i],height[j])
+        #         # print("d1:",d1)
+        #         # print("d2:",d2)
+        #         cur = d1 * d2
+        #         if res < cur:
+        #             res = cur
+        #         j-=1
+        # return res
+
+#The above approch=O(n^2)- not an optimized one
+
+
+        left = 0
+        right = n-1
+        while left < right:
+            d1 = right - left
+            d2 = min(height[left],height[right])
+            # print("d1:",d1)
+            # print("d2:",d2)
+            cur = d1 * d2
+            res = max(res,cur)
+            if height[left] < height[right]:
+                left+=1
+            else:
+                right-=1
+        return res
