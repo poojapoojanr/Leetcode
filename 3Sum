@@ -1,0 +1,44 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        nums.sort()
+        res = []
+        # result = []
+        # for i in range(n-2):
+        #     for j in range(i+1,n-1):
+        #         for k in range(j+1,n):
+        #             x = nums[i]
+        #             y = nums[j]
+        #             z = nums[k]
+        #             print("x:",x)
+        #             print("y:",y)
+        #             print("z:",z)
+        #             if  (i != j) and (i != k) and (j != k) and (x + y + z) == 0:
+        #                 res = [nums[i],nums[j],nums[k]]
+        #             if res != [] and res not in result:
+        #                 result.append(res)
+        # return result
+#### above approch - O(n^3)---not efficient            
+
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            
+            j = i + 1
+            k = n - 1
+
+            while j < k:
+                total = nums[i] + nums[j] + nums[k]
+
+                if total > 0:
+                    k -= 1
+                elif total < 0:
+                    j += 1
+                else:
+                    res.append([nums[i], nums[j], nums[k]])
+                    j += 1
+
+                    while nums[j] == nums[j-1] and j < k:
+                        j += 1
+        
+        return res
