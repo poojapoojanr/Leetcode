@@ -1,0 +1,37 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+#### method 1 (only 1 case is not passed here ) #######
+        # n = len(s) 
+        # length = 0
+        # if n == 0:
+        #     return length
+        # for i in range(n):
+        #     cur = 0
+        #     res =[]
+        #     for j in range(i+1,n):
+        #         if s[i] == s[j] or s[j] in res:
+        #             break
+        #         else:
+        #             res.append(s[j])
+        #             # print("i",s[i])
+        #             # print("j",s[j])
+        #             cur += 1
+        #             # print("cur:", cur)
+                
+        #     length = max(length,cur)
+        #     # print("len:",length)
+        # return length+1
+##### method 2 (2-pinter approach) #####
+        left = max_length = 0
+        char_set = set()
+        
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+
+            char_set.add(s[right])
+            max_length = max(max_length, right - left + 1)
+        
+        return max_length
+
