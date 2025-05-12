@@ -24,7 +24,17 @@ class Solution:
             p-=1
             a -= (b << p)
             count += (1 << p)
-            
+
+{
+        This is the main division logic.
+
+#Bitwise Shifting is used to speed up the division process. The idea is to subtract multiples of divisor from dividend using bit shifts, which is essentially equivalent to multiplying the divisor by powers of two.
+
+#Inner loop: The while a >= (b << p) loop finds the largest p such that b << p (i.e., b * 2^p) is less than or equal to a. This simulates finding how many times divisor can fit into dividend without exceeding it.
+
+#After finding the largest p, we subtract (b << p) from a, and add 1 << p to count. This is effectively adding the value of the quotient in the correct place 
+}
+
         return min(max(sign * count, -2**31), 2**31 - 1)
         
         
