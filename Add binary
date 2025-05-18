@@ -1,0 +1,15 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        carry = 0
+        res = []
+        ind1 ,ind2 = len(a)-1 , len(b)-1
+        while ind1 >= 0 or ind2 >= 0 or carry == 1:
+            if ind1 >= 0:
+                carry+=int(a[ind1])
+                ind1 -= 1
+            if ind2 >= 0:
+                carry += int(b[ind2])
+                ind2 -= 1
+            res.append(str(carry % 2))
+            carry = carry // 2
+        return "".join(res[::-1])
