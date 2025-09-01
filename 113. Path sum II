@@ -1,0 +1,123 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        result = []
+
+        def dfs(node, path, current_sum):
+            if not node:
+                return
+
+            # include this node
+            path.append(node.val)
+            current_sum += node.val
+
+            # if it's a leaf and sums up to target
+            if not node.left and not node.right and current_sum == targetSum:
+                result.append(list(path))   # copy the current path
+
+            # recurse left and right
+            dfs(node.left, path, current_sum)
+            dfs(node.right, path, current_sum)
+
+            # backtrack
+            path.pop()
+
+        dfs(root, [], 0)
+        return result
+
+
+
+traverse:
+        5
+       / \
+      4   8
+     /   / \
+    11  13  4
+   /  \     / \
+  7    2   5   1
+  
+Step 1 → Start at root (5)
+
+path = [5]
+
+current_sum = 5
+
+Not a leaf → go deeper.
+
+Step 2 → Left child (4)
+
+path = [5, 4]
+
+current_sum = 9
+
+Not a leaf → go deeper.
+
+Step 3 → Left child (11)
+
+path = [5, 4, 11]
+
+current_sum = 20
+
+Still not a leaf → go deeper.
+
+Step 4 → Left child (7)
+
+path = [5, 4, 11, 7]
+
+current_sum = 27 ❌ Too big, not equal.
+
+Backtrack (path.pop() → [5, 4, 11])
+
+Step 5 → Right child (2)
+
+path = [5, 4, 11, 2]
+
+current_sum = 22 ✅ and it’s a leaf.
+
+Save → result = [[5, 4, 11, 2]]
+
+Backtrack to [5, 4, 11] → [5, 4] → [5]
+
+Step 6 → Right subtree of 5 (node 8)
+
+path = [5, 8]
+
+current_sum = 13
+
+Step 7 → Left child (13)
+
+path = [5, 8, 13]
+
+current_sum = 26 ❌
+
+Backtrack.
+
+Step 8 → Right child (4)
+
+path = [5, 8, 4]
+
+current_sum = 17
+
+Step 9 → Left child (5)
+
+path = [5, 8, 4, 5]
+
+current_sum = 22 ✅ and it’s a leaf.
+
+Save → result = [[5, 4, 11, 2], [5, 8, 4, 5]]
+
+Step 10 → Right child (1)
+
+path = [5, 8, 4, 1]
+
+current_sum = 18 ❌
+
+Backtrack.
+
+✅ Final Result
+[[5, 4, 11, 2], [5, 8, 4, 5]]
